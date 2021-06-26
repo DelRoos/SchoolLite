@@ -1,0 +1,19 @@
+[
+    {
+        "model": "school.level",
+        "pk": 1,
+        "fields": {
+            "num": 1,
+            "describe": "6 eme"
+        }
+    },
+    {
+        "model": "school.level",
+        "pk": 2,
+        "fields": {
+            "num": 2,
+            "describe": "5 eme"
+        }
+    }
+ 
+]

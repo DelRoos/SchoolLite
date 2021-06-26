@@ -1,0 +1,19 @@
+[
+    {
+        "model": "school.classe",
+        "pk": 1,
+        "fields": {
+            "level": 1,
+            "speciality": 1
+        }
+    },
+    {
+        "model": "school.classe",
+        "pk": 2,
+        "fields": {
+            "level": 1,
+            "speciality": 2
+        }
+    }
+ 
+]

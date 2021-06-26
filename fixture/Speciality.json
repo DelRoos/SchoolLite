@@ -1,0 +1,19 @@
+[
+    {
+        "model": "school.speciality",
+        "pk": 1,
+        "fields": {
+            "letter": "allemand",
+            "describe": "L’allemand (autonyme : Deutsch, /dɔʏtʃ/ Écouter) est l'une des langues indo-européennes appartenant à la branche occidentale des langues germaniques. Du fait de ses nombreux dialectes, l'allemand constitue dans une certaine mesure une langue-toit (Dachsprache)."
+        }
+    },
+    {
+        "model": "school.speciality",
+        "pk": 2,
+        "fields": {
+            "letter": "espagnol",
+            "describe": "eleve specialiser dans la langue espagnol"
+        }
+    }
+ 
+]

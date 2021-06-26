@@ -1,0 +1,19 @@
+[
+    {
+        "model": "school.departement",
+        "pk": 1,
+        "fields": {
+            "name": "mathematique",
+            "speciality": "Les mathématiques (ou la mathématique) sont un ensemble de connaissances abstraites résultant de raisonnements logiques appliqués à des objets divers tels que les ensembles mathématiques, les nombres, les formes, les structures, les transformations, etc. ; ainsi qu'aux relations et opérations mathématiques qui existent entre ces objets. Elles sont aussi le domaine de recherche développant ces connaissances, ainsi que la discipline qui les enseigne."
+        }
+    },
+    {
+        "model": "school.departement",
+        "pk": 2,
+        "fields": {
+            "name": "physique",
+            "speciality": "La physique développe des représentations du monde expérimentalement vérifiables dans un domaine de définition donné. Elle produit plusieurs lectures du monde, chacune n'étant considérée comme précise que jusqu'à un certain point. La modélisation des systèmes physiques peut inclure ou non les processus chimiques et biologiques."
+        }
+    }
+ 
+]

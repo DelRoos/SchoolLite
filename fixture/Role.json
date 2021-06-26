@@ -1,0 +1,27 @@
+[
+    {
+        "model": "school.roles",
+        "pk": 1,
+        "fields": {
+            "code": 1,
+            "describe": "student"
+        }
+    },
+    {
+        "model": "school.roles",
+        "pk": 2,
+        "fields": {
+            "code": 2,
+            "describe": "teacher"
+        }
+    },
+    {
+        "model": "school.roles",
+        "pk": 3,
+        "fields": {
+            "code": 3,
+            "describe": "admin"
+        }
+    }
+ 
+]

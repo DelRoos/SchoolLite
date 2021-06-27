@@ -13,8 +13,8 @@ class LevelSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
 class ClasseSerializer(serializers.ModelSerializer):
-    level = LevelSerializer(many=False)
-    speciality = SpecialitySerializer(many=False)
+    # level = LevelSerializer(many=False)
+    # speciality = SpecialitySerializer(many=False)
     
     class Meta:
         model = Classe
@@ -27,8 +27,8 @@ class ClasseSerializer(serializers.ModelSerializer):
         return data
         
 class MatterSerializer(serializers.ModelSerializer):
-    classe = ClasseSerializer(many=False)
-    teacher = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    # classe = ClasseSerializer(many=False)
+    # teacher = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     
     class Meta:
         model = Matter

@@ -21,9 +21,10 @@ class ClasseSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
     def validate(self, data):
+        query = []
         query = Classe.objects.filter(level=data['level'], speciality=data['speciality'])
-        print(query)
-        if query != None:
+        # print(query)
+        if len(query) > 0:
             raise serializers.ValidationError("this class already exists")
         return data
         

@@ -1,5 +1,5 @@
-from .models import ClassRoom, Speciality, Level, Classe, Matter, Program, Lecon, Question, Reponse
-from .serializers import SpecialitySerializer, LevelSerializer, ClasseSerializer, MatterSerializer, LeconSerializer, QuestionSerializer, ReponseSerializer
+from .models import ClassRoom, Classe, Matter, Program, Lecon, Question, Reponse
+from .serializers import ClasseSerializer, MatterSerializer, LeconSerializer, QuestionSerializer, ReponseSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from .serializers import ProgramSerializer
@@ -13,13 +13,13 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.core import serializers
 
-class SpecialityList(generics.ListCreateAPIView):
-    queryset = Speciality.objects.all()
-    serializer_class = SpecialitySerializer
+# class SpecialityList(generics.ListCreateAPIView):
+#     queryset = Speciality.objects.all()
+#     serializer_class = SpecialitySerializer
 
-class LevelList(generics.ListCreateAPIView):
-    queryset = Level.objects.all()
-    serializer_class = LevelSerializer
+# class LevelList(generics.ListCreateAPIView):
+#     queryset = Level.objects.all()
+#     serializer_class = LevelSerializer
     
 class ClasseList(generics.ListCreateAPIView):
     queryset = Classe.objects.all()
@@ -29,13 +29,13 @@ class MatterList(generics.ListCreateAPIView):
     queryset = Matter.objects.all()
     serializer_class = MatterSerializer
     
-class SpecialityAct(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Speciality.objects.all()
-    serializer_class = SpecialitySerializer
+# class SpecialityAct(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Speciality.objects.all()
+#     serializer_class = SpecialitySerializer
 
-class LevelAct(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Level.objects.all()
-    serializer_class = LevelSerializer
+# class LevelAct(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Level.objects.all()
+#     serializer_class = LevelSerializer
 
 class ClasseAct(generics.RetrieveUpdateDestroyAPIView):
     queryset = Classe.objects.all()

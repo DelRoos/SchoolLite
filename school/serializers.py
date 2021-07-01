@@ -1,16 +1,16 @@
 from django.db import models
-from .models import Speciality, Level, Classe, Matter, Program, Lecon, Question, Reponse
+from .models import Classe, Matter, Program, Lecon, Question, Reponse
 from rest_framework import serializers
 
-class SpecialitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Speciality
-        fields = '__all__'
+# class SpecialitySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Speciality
+#         fields = '__all__'
         
-class LevelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Level
-        fields = '__all__'
+# class LevelSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Level
+#         fields = '__all__'
     
 class ClasseSerializer(serializers.ModelSerializer):
     # level = LevelSerializer(many=False)

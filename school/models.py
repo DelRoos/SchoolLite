@@ -3,17 +3,51 @@ from django.db import models
 from users.models import NewUser
 
 # Create your models here.
-class Speciality(models.Model):
-    letter = models.CharField(max_length=10, unique=True)
-    describe = models.TextField(blank=True)
+# class Speciality(models.Model):
+#     letter = models.CharField(max_length=10, unique=True)
+#     describe = models.TextField(blank=True)
     
-class Level(models.Model):
-    num = models.IntegerField(unique=True)
-    describe = models.TextField(blank=True)
+# class Level(models.Model):
+#     num = models.IntegerField(unique=True)
+#     describe = models.TextField(blank=True)
     
+# class Classe(models.Model):
+#     level = models.ForeignKey(Level, on_delete=models.CASCADE)
+#     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name='spec_class')
+
 class Classe(models.Model):
-    level = models.ForeignKey(Level, on_delete=models.CASCADE)
-    speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name='spec_class')
+    SPECIALITIES = [
+        ('C', 'Mathematique'),
+        ('D', 'Physique'),
+        ('TI', 'Chimie'),
+        ('ALL', 'Histoire'),
+        ('ESP', 'Science'),
+        ('CH', 'ECM'),
+    ]
+    LEVELS = [
+        ('6', '6 eime'),
+        ('5', '5 eime'),
+        ('4', '4 eime'),
+        ('3', '3 eime'),
+        ('2', 'seconde'),
+        ('1', 'premiere'),
+        ('0', 'terminale'),
+    ]
+    level = models.CharField(
+        max_length=2,
+        choices=LEVELS,
+        null=True, 
+        blank=True
+        # Level, on_delete=models.CASCADE
+    )
+    speciality = models.CharField(
+        # Speciality, on_delete=models.CASCADE, related_name='spec_class'
+        max_length=7,
+        choices=SPECIALITIES,
+        null=True, 
+        blank=True
+    )
+
 
 class ClassRoom(models.Model):
     user = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name="classroom_user") 

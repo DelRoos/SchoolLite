@@ -219,8 +219,11 @@ class ReponseAct(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReponseSerializer
 
 def get_all_matter_class(id_class):
-    all_user = ClassRoom.objects.filter(classe=id_class)
-    all_teacher = all_user.filter(role=2)
+    all_user = ClassRoom.objects.filter(classe=id_class, role='teach')
+
+
+    # all_teacher = all_user.filter(role=2)
+
 
 @api_view(['GET'])
 def active_or_desactive_lesson(request, pk_program):

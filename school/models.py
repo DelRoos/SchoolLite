@@ -18,11 +18,11 @@ from users.models import NewUser
 class Classe(models.Model):
     SPECIALITIES = [
         ('C', 'Mathematique'),
-        ('D', 'Physique'),
-        ('TI', 'Chimie'),
-        ('ALL', 'Histoire'),
-        ('ESP', 'Science'),
-        ('CH', 'ECM'),
+        ('D', 'Science'),
+        ('TI', 'Informatique'),
+        ('ALL', 'Allemand'),
+        ('ESP', 'Espagnol'),
+        ('CH', 'Chimie'),
     ]
     LEVELS = [
         ('6', '6 eime'),

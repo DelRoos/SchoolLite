@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NewUser, Departement, Roles
+from .models import NewUser
 from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput,Textarea
 # Register your models here.
@@ -31,5 +31,5 @@ class UserAdminConfig(UserAdmin):
     #What to as when click add in New user model
 
 admin.site.register(NewUser,UserAdminConfig)
-admin.site.register(Departement)
-admin.site.register(Roles)
+# admin.site.register(Departement)
+# admin.site.register(Roles)

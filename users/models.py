@@ -35,26 +35,55 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
     
-class Departement(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    speciality = models.TextField()
+# class Departement(models.Model):
+#     name = models.CharField(max_length=50, unique=True)
+#     speciality = models.TextField()
     
-class Roles(models.Model):
-    code = models.IntegerField(unique=True)
-    describe = models.CharField(max_length=50)
+# class Roles(models.Model):
+#     code = models.IntegerField(unique=True)
+#     describe = models.CharField(max_length=50)
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
     SEX = (("F", "Female"),
            ("M", "Male"))
+
+    DEPARTEMENTS = [
+        ('math', 'Mathematique'),
+        ('phy', 'Physique'),
+        ('chim', 'Chimie'),
+        ('hist', 'Histoire'),
+        ('svt', 'Science'),
+        ('ecm', 'ECM'),
+        ('stud', 'student'),
+        ('eps', 'sport'),
+    ]
      
+    ROLES = [
+        ('stud', 'Student'),
+        ('teach', 'Teacher'),
+        ('admin', 'Administrator'),
+    ]
+
     matricule = models.CharField(max_length=7, unique=True)
     email = models.EmailField(_('email_address'),unique=True)
     username = models.CharField(max_length=150)
     first_name = models.CharField(max_length=150)
     born_at = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=1, choices=SEX, blank=True)
-    role = models.ForeignKey(Roles, on_delete=models.CASCADE, related_name='role_user', null=True, blank=True)
-    departement = models.ForeignKey(Departement, on_delete=models.CASCADE, related_name='dep_user', blank=True, null=True)
+    role = models.CharField(
+        max_length=7,
+        choices=ROLES,
+        null=True, 
+        blank=True
+        # Roles, on_delete=models.CASCADE, related_name='role_user', null=True, blank=True
+        )
+    departement = models.CharField(
+        max_length=7,
+        choices=DEPARTEMENTS,
+        null=True, 
+        blank=True
+        # Departement, on_delete=models.CASCADE, related_name='dep_user', blank=True, null=True
+        )
     create_at = models.DateTimeField(default=timezone.now)
     about = models.TextField(_('about'),max_length=400,blank=True)
     

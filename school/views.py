@@ -218,13 +218,6 @@ class ReponseAct(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reponse.objects.all()
     serializer_class = ReponseSerializer
 
-def get_all_matter_class(id_class):
-    all_user = ClassRoom.objects.filter(classe=id_class, role='teach')
-
-
-    # all_teacher = all_user.filter(role=2)
-
-
 @api_view(['GET'])
 def active_or_desactive_lesson(request, pk_program):
     # activate or desactivate the lesson title in the program list
@@ -236,3 +229,14 @@ def active_or_desactive_lesson(request, pk_program):
 
     return Response(data, status=status.HTTP_200_OK)
     
+@api_view(['GET'])
+def get_all_matter_classe(request, pk_classe):
+    try:
+        classe = Classe.objects.get(pk=pk_classe)
+
+        serializer = MatterSerializer(classe.class_matter.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Classe.DoesNotExist:
+        return Response({'error': 'this classe does not'},status=status.HTTP_404_NOT_FOUND)
+             

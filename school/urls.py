@@ -10,6 +10,7 @@ urlpatterns = [
     
     path('classe',views.ClasseList.as_view()),
     path('classe/<int:pk>',views.ClasseAct.as_view()),
+    path('classe/matter/<int:pk_classe>',views.get_all_matter_classe),
     
     path('matter',views.MatterList.as_view()),
     path('matter/<int:pk>',views.MatterAct.as_view()),

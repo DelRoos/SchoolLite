@@ -122,12 +122,6 @@ class UserView(viewsets.ViewSet):
         queryset = NewUser.objects.all()
         user = get_object_or_404(queryset, pk=pk)
         
-        try:
-            if user.role.id != request.data['role'] :
-                return Response({'message': 'cannot change roleof user'},status=status.HTTP_404_NOT_FOUND)
-        except KeyError:
-            pass
-
         user.delete()
 
         return Response({'message': 'the user has been successfully deleted'})

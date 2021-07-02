@@ -1,5 +1,5 @@
 from django.db import models
-from .models import Classe, Matter, Program, Lecon, Question, Reponse
+from .models import Classe, Matter, Program, Lecon, Question, Reponse, ClassRoom
 from rest_framework import serializers
 
 # class SpecialitySerializer(serializers.ModelSerializer):
@@ -37,16 +37,14 @@ class MatterSerializer(serializers.ModelSerializer):
         fields = '__all__'
             
     def validate(self, data):
-        query = Matter.objects.none(classe=data['classe'], teacher=data['teacher'])
-        if query != None:
-            raise serializers.ValidationError("the teaching unit is already taught by this teacher")
-        
-        query_matter_exist = Matter.objects.filter(classe=data['classe'])
-        if query !=None and query_matter_exist!=None:
-            for item in query_matter_exist :
-                if item.teacher.departement == query[0].teacher.departement:
-                    raise serializers.ValidationError("the teaching unit is already taught by this teacher")
-                    
+        query = Matter.objects.filter(classe=data['classe'], matter=data['matter'])
+        if len(query) > 0 :
+            raise serializers.ValidationError("the subject has already been assigned to another teacher")
+
+        get_teacher_have_spec = ClassRoom.objects.filter(user__departement=data['matter'], classe=data['classe'])
+        if len(get_teacher_have_spec) > 0 :
+            raise serializers.ValidationError("No teacher from {} department teaches this class".format(data['matter']))
+
         return data
 
         

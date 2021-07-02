@@ -22,7 +22,7 @@ class Classe(models.Model):
         ('TI', 'Informatique'),
         ('ALL', 'Allemand'),
         ('ESP', 'Espagnol'),
-        ('CH', 'Chimie'),
+        ('N', 'None'),
     ]
     LEVELS = [
         ('6', '6 eime'),
@@ -54,8 +54,28 @@ class ClassRoom(models.Model):
     classe = models.ForeignKey(Classe, on_delete=models.CASCADE, related_name="classroom_classe") 
     
 class Matter(models.Model):
+    MATTERS = [
+        ('math', 'Mathematique'),
+        ('phy', 'Physique'),
+        ('chim', 'Chimie'),
+        ('hist', 'Histoire'),
+        ('svt', 'Science'),
+        ('geo', 'Geographie'),
+        ('eng', 'Anglais'),
+        ('fr', 'Francais'),
+        ('ecm', 'ECM'),
+        ('stud', 'student'),
+        ('eps', 'sport'),
+    ]
     classe = models.ForeignKey(Classe, on_delete=models.CASCADE, related_name='class_matter')
     credit = models.IntegerField()
+    matter = models.CharField(
+        max_length=7,
+        choices=MATTERS,
+        null=True, 
+        blank=True
+        # Departement, on_delete=models.CASCADE, related_name='dep_user', blank=True, null=True
+        )
 
 class Program(models.Model):
     matter = models.ForeignKey(Matter, on_delete=models.CASCADE, related_name='matter_program')

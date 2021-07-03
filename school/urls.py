@@ -18,6 +18,11 @@ urlpatterns = [
     path('question',views.QuestionList.as_view()),
     path('question/<int:pk>',views.QuestionAct.as_view()),
     
+    path('test/result',views.TestResultList.as_view()),
+    path('test/result/<int:pk>',views.TestResultAct.as_view()),
+    # get_all_result_test_by_matter(request, pk_matter, pk_user)
+    path('test/result/matter/<int:pk_matter>/<int:pk_user>', views.get_all_result_test_by_matter),
+
     path('reponse',views.ReponseList.as_view()),
     path('reponse/<int:pk>',views.ReponseAct.as_view()),
 

@@ -59,6 +59,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         ('ecm', 'ECM'),
         ('stud', 'student'),
         ('eps', 'sport'),
+        ('inf', 'Informatique'),
     ]
      
     ROLES = [

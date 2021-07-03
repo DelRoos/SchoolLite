@@ -66,6 +66,7 @@ class Matter(models.Model):
         ('ecm', 'ECM'),
         ('stud', 'student'),
         ('eps', 'sport'),
+        ('inf', 'Informatique'),
     ]
     classe = models.ForeignKey(Classe, on_delete=models.CASCADE, related_name='class_matter')
     credit = models.IntegerField()
@@ -99,3 +100,8 @@ class Reponse(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="question_response")
     content = models.CharField(max_length=1000)
     verify = models.BooleanField()
+
+class TestResults(models.Model):
+    lesson = models.ForeignKey(Lecon, on_delete=models.CASCADE, related_name="note_test")
+    note = models.FloatField()
+    student = models.ForeignKey(NewUser, on_delete=models.CASCADE, related_name="note_user") 

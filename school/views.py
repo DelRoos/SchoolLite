@@ -1,5 +1,5 @@
-from .models import ClassRoom, Classe, Matter, Program, Lecon, Question, Reponse
-from .serializers import ClasseSerializer, MatterSerializer, LeconSerializer, QuestionSerializer, ReponseSerializer
+from .models import ClassRoom, Classe, Matter, Program, Lecon, Question, Reponse, TestResults
+from .serializers import ClasseSerializer, MatterSerializer, LeconSerializer, QuestionSerializer, TestResultSerializer, ReponseSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from .serializers import ProgramSerializer
@@ -37,6 +37,11 @@ class MatterList(generics.ListCreateAPIView):
 #     queryset = Level.objects.all()
 #     serializer_class = LevelSerializer
 
+
+class TestResultList(generics.ListCreateAPIView):
+    queryset = TestResults.objects.all()
+    serializer_class = TestResultSerializer
+
 class ClasseAct(generics.RetrieveUpdateDestroyAPIView):
     queryset = Classe.objects.all()
     serializer_class = ClasseSerializer
@@ -44,6 +49,11 @@ class ClasseAct(generics.RetrieveUpdateDestroyAPIView):
 class MatterAct(generics.RetrieveUpdateDestroyAPIView):
     queryset = Matter.objects.all()
     serializer_class = MatterSerializer
+
+
+class TestResultAct(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TestResults.objects.all()
+    serializer_class = TestResultSerializer
 
 class ProgramView(viewsets.ViewSet):
     def list(self, request):
@@ -239,4 +249,25 @@ def get_all_matter_classe(request, pk_classe):
 
     except Classe.DoesNotExist:
         return Response({'error': 'this classe does not'},status=status.HTTP_404_NOT_FOUND)
-             
+
+@api_view(['GET'])
+def get_all_result_test_by_matter(request, pk_matter, pk_user):
+    try:
+        matter = Matter.objects.get(pk=pk_matter)
+        programs = matter.matter_program.all()
+        results = []
+
+        for program in programs:
+            lesson = program.program_lecon.all()
+            if len(lesson) == 1:
+                questions = lesson.lecon_question.all()
+                if len(questions) > 0:
+                    result = TestResults.objects.filter(lesson=lesson.id, student=pk_user)
+                    if len(result) == 1:
+                        results.append(result)
+
+        serializer = TestResultSerializer(results, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Matter.DoesNotExist:
+        return Response({'error': 'this matter does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        

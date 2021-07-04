@@ -85,7 +85,7 @@ class ClassRoomView(viewsets.ViewSet):
 
     def remove_class_teach(self, request, pk_teach, pk_classe):
         try:
-            NewUser.objects.get(pk=request.data['user'], role='teach')
+            NewUser.objects.get(pk=pk_teach, role='teach')
         except NewUser.DoesNotExist:
             return Response({'error': 'this teacher not exist'} ,status=status.HTTP_404_NOT_FOUND)
 

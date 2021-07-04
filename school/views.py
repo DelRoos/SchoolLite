@@ -317,7 +317,7 @@ def get_all_result_test_by_matter(request, pk_matter, pk_user):
 
 @api_view(['GET'])
 def get_all_user_classe(request, pk_classe, role):
-    classes = ClassRoom.objects.get(classe=pk_classe)
+    classes = ClassRoom.objects.filter(classe=pk_classe)
     users = []
 
     for classe in classes:
@@ -330,7 +330,7 @@ def get_all_user_classe(request, pk_classe, role):
 
 @api_view(['GET'])
 def get_all_user_dept(request, dept):
-    users = NewUser.objects.get(role='teach', departement=dept)
+    users = NewUser.objects.filter(role='teach', departement=dept)
 
     serializers = UserSerializer(users, many=True)
     return Response(serializers.data, status=status.HTTP_200_OK)

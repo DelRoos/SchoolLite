@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from django.core import serializers
+from users.serializers import UserSerializer
 
 # class SpecialityList(generics.ListCreateAPIView):
 #     queryset = Speciality.objects.all()
@@ -92,6 +93,7 @@ class ClassRoomView(viewsets.ViewSet):
         try:
             classroom = ClassRoom.objects.get(user=pk_teach, classe=pk_classe)
             classroom.delete()
+            return Response({'message': 'the class has remove success'} ,status=status.HTTP_200_OK)
         except Classe.DoesNotExist:
             return Response({'error': 'this teacher not teach this class'},status=status.HTTP_404_NOT_FOUND)
 
@@ -312,3 +314,23 @@ def get_all_result_test_by_matter(request, pk_matter, pk_user):
     except Matter.DoesNotExist:
         return Response({'error': 'this matter does not exist'}, status=status.HTTP_404_NOT_FOUND)
         
+
+@api_view(['GET'])
+def get_all_user_classe(request, pk_classe, role):
+    classes = ClassRoom.objects.get(classe=pk_classe)
+    users = []
+
+    for classe in classes:
+        if classe.user.role == role:
+            users.append(classe.user)
+
+    serializers = UserSerializer(users, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_all_user_dept(request, dept):
+    users = NewUser.objects.get(role='teach', departement=dept)
+
+    serializers = UserSerializer(users, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)

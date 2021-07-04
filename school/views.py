@@ -1,5 +1,6 @@
+from SchoolOnline.users.models import NewUser
 from .models import ClassRoom, Classe, Matter, Program, Lecon, Question, Reponse, TestResults
-from .serializers import ClasseSerializer, MatterSerializer, LeconSerializer, QuestionSerializer, TestResultSerializer, ReponseSerializer
+from .serializers import ClasseSerializer, ClassRoomSerializer, MatterSerializer, LeconSerializer, QuestionSerializer, TestResultSerializer, ReponseSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from .serializers import ProgramSerializer
@@ -54,6 +55,41 @@ class MatterAct(generics.RetrieveUpdateDestroyAPIView):
 class TestResultAct(generics.RetrieveUpdateDestroyAPIView):
     queryset = TestResults.objects.all()
     serializer_class = TestResultSerializer
+
+
+class ClassRoomView(viewsets.ViewSet):
+    def add_teach_class(self, request):
+        try:
+            Classe.objects.get(pk=request.data['classe'])
+        except Classe.DoesNotExist:
+            return Response({'error': 'this classe not exist'},status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            NewUser.objects.get(pk=request.data['user'], role='teach')
+        except NewUser.DoesNotExist:
+            return Response({'error': 'this teacher not exist'},status=status.HTTP_404_NOT_FOUND)
+    
+
+        serializer = ClassRoomSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            class_room = serializer.save()
+            return Response(serializer.data,
+                            status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
+
+    def remove_class_teach(self, request, pk_teach, pk_classe):
+        try:
+            NewUser.objects.get(pk=request.data['user'], role='teach')
+        except NewUser.DoesNotExist:
+            return Response({'error': 'this teacher not exist'} ,status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            classroom = ClassRoom.objects.get(user=pk_teach, classe=pk_classe)
+            classroom.delete()
+        except Classe.DoesNotExist:
+            return Response({'error': 'this teacher not teach this class'},status=status.HTTP_404_NOT_FOUND)
+
 
 class ProgramView(viewsets.ViewSet):
     def list(self, request):

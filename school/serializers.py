@@ -12,6 +12,11 @@ from rest_framework import serializers
 #     class Meta:
 #         model = Level
 #         fields = '__all__'
+
+class ClassRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClassRoom
+        fields = '__all__'
     
 class ClasseSerializer(serializers.ModelSerializer):
     # level = LevelSerializer(many=False)

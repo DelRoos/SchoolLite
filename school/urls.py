@@ -55,6 +55,14 @@ urlpatterns = [
     path('lecon_test/<int:pk_program>',views.LeconView.as_view({
             'get': 'get_test'
         })),
+    
+    path('teacher/add/class', views.ClassRoomView.as_view({
+        'post': 'add_teach_class'
+    })),
+
+    path('teacher/remove/class/<int:pk_teach>/<int:pk_classe>', views.ClassRoomView.as_view({
+        'get': 'remove_class_teach'
+    })),
 
     path('active_or_desactive/<int:pk_program>',views.active_or_desactive_lesson),
     

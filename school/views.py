@@ -60,23 +60,28 @@ class TestResultAct(generics.RetrieveUpdateDestroyAPIView):
 class ClassRoomView(viewsets.ViewSet):
     def add_teach_class(self, request):
         try:
-            Classe.objects.get(pk=request.data['classe'])
+            classe = Classe.objects.get(pk=request.data['classe'])
         except Classe.DoesNotExist:
             return Response({'error': 'this classe not exist'},status=status.HTTP_404_NOT_FOUND)
-
+     
         try:
-            NewUser.objects.get(pk=request.data['user'], role='teach')
+            user = NewUser.objects.get(pk=request.data['user'], role='teach')
         except NewUser.DoesNotExist:
             return Response({'error': 'this teacher not exist'},status=status.HTTP_404_NOT_FOUND)
-    
 
-        serializer = ClassRoomSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            class_room = serializer.save()
-            return Response(serializer.data,
-                            status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,
-                        status=status.HTTP_400_BAD_REQUEST)
+        classroom = ClassRoom.objects.filter(user__departement=user.departement, classe=classe.id)   
+
+        if len(classroom) == 0 :
+            serializer = ClassRoomSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                class_room = serializer.save()
+                return Response(serializer.data,
+                                status=status.HTTP_201_CREATED)
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'error': 'Someone teacher teach this matter in this class'},status=status.HTTP_404_NOT_FOUND)
+
 
     def remove_class_teach(self, request, pk_teach, pk_classe):
         try:

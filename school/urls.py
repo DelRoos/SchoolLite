@@ -66,7 +66,7 @@ urlpatterns = [
 
     path('active_or_desactive/<int:pk_program>',views.active_or_desactive_lesson),
     path('user/classe/<int:pk_classe>/<str:role>',views.get_all_user_classe),
-    path('user/dept/<str:dept>',views.get_all_user_classe),
+    path('user/dept/<str:dept>',views.get_all_user_dept),
     
     path('lecon/<int:pk>', views.LeconView.as_view({
             'get': 'retrieve',

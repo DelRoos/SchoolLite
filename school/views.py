@@ -1,4 +1,4 @@
-from SchoolOnline.users.models import NewUser
+from users.models import NewUser
 from .models import ClassRoom, Classe, Matter, Program, Lecon, Question, Reponse, TestResults
 from .serializers import ClasseSerializer, ClassRoomSerializer, MatterSerializer, LeconSerializer, QuestionSerializer, TestResultSerializer, ReponseSerializer
 from rest_framework import generics

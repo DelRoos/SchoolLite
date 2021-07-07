@@ -344,7 +344,7 @@ def get_all_result_test_user(request, pk_user):
         test_result = user.note_user.all()
         serializer = TestResultSerializer(test_result, many=True)
 
-        return Response(serializers.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     return Response({'error': 'this user is not student'}, status=status.HTTP_404_NOT_FOUND)
     

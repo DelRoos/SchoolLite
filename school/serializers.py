@@ -82,32 +82,13 @@ class TestResultSerializer(serializers.ModelSerializer):
         model = TestResults
         fields = '__all__'
             
-    # def validate(self, data):
-        
-    #     lessons = Lecon.objects.filter(pk=data['lesson'])
-    #     testResult = TestResults.objects.filter(lesson=data['lesson'], student=data['student'])
+    def validate(self, data):
+        testResult = TestResults.objects.filter(lesson=data['lesson'], student=data['student'])
 
-    #     if len(testResult) == 0:
-    #         if 0 <= data['note'] <= 20:
-    #             if len(lessons) > 0:
-    #                 questions = lessons[0].lecon_question.all()
-    #                 if len(questions) > 0:
-    #                     try:
-    #                         user = NewUser.objects.get(pk=data['student'])
-    #                         if user.role == 'stud':
-    #                             if len(user.classroom_user.all()) == 1 and user.classroom_user.all()[0].classe == data['classe']:
-    #                                 return data
-    #                             else:
-    #                                 raise serializers.ValidationError('the user is not in this class')
-    #                         else:
-    #                             raise serializers.ValidationError('the user is not a student')
-    #                     except NewUser.DoesNotExist:
-    #                         raise serializers.ValidationError('user does not exist')
-    #                 else:    
-    #                     raise serializers.ValidationError('the tests of this lesson have not been uploaded')
-    #             else:
-    #                 raise serializers.ValidationError('the lesson does not exist')
-    #         else:
-    #             raise serializers.ValidationError('the score must be in the range [0..20].')
-    #     else:
-    #         raise serializers.ValidationError('the test has already been noted')
+        if len(testResult) != 0:
+            raise serializers.ValidationError('the user have note in this')
+
+        if data['note'] > 20 or data['note'] < 0:
+            raise serializers.ValidationError('the note is invalid')
+            
+        return data

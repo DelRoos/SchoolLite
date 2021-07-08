@@ -69,7 +69,7 @@ urlpatterns = [
     path('user/dept/<str:dept>',views.get_all_user_dept),
     path('user/test/result/<int:pk_user>',views.get_all_result_test_user),
     path('user/test/matter/<int:pk_user>/<int:pk_matter>',views.get_all_result_test_user_by_matter),
-    path('class/test/result/<int:pk_matter>',views.get_all_result_test_user_by_matter),
+    path('class/test/result/<int:pk_matter>',views.get_all_result_test_class_by_matter),
     
     path('lecon/<int:pk>', views.LeconView.as_view({
             'get': 'retrieve',

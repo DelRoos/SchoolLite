@@ -348,3 +348,19 @@ def get_all_result_test_user(request, pk_user):
 
     return Response({'error': 'this user is not student'}, status=status.HTTP_404_NOT_FOUND)
     
+@api_view(['GET'])
+def get_all_result_test_user_by_matter(request, pk_user, pk_matter):
+    
+    test_result = TestResults.objects.filter(lesson__program__matter=pk_matter, student=pk_user)
+    serializer = TestResultSerializer(test_result, many=True)
+    
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+    
+@api_view(['GET'])
+def get_all_result_test_class_by_matter(request, pk_matter):
+    test_result = TestResults.objects.filter(lesson__program__matter=pk_matter)
+    serializer = TestResultSerializer(test_result, many=True)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
